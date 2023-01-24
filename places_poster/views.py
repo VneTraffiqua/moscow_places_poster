@@ -1,5 +1,7 @@
 from django.http import HttpResponse
+from django.template import loader
+from django.shortcuts import render
 
 
 def show_index(request):
-    return HttpResponse('Здесь будет карта')
+    return render(request, 'index.html')
