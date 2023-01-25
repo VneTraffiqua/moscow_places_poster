@@ -16,6 +16,10 @@ class Place(models.Model):
         verbose_name='Описание',
         help_text='Введите описание'
     )
+    # img = models.ImageField(
+    #     verbose_name='Изображение',
+    #     upload_to='media/',
+    # )
     lat = models.FloatField(max_length=20)
     lon = models.FloatField(max_length=20)
 
@@ -25,3 +29,17 @@ class Place(models.Model):
     class Meta:
         verbose_name = 'Место'
         verbose_name_plural = 'Места'
+
+
+class Photo(models.Model):
+    image = models.ImageField(upload_to='media/', verbose_name='Изображение')
+    place = models.ForeignKey(
+        Place, related_name='photos', on_delete=models.CASCADE
+    )
+
+    def __str__(self):
+        return f'{self.id} {self.place}'
+
+    class Meta:
+        verbose_name = 'Изображение'
+        verbose_name_plural = 'Изображения'
