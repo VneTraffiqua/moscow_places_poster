@@ -25,7 +25,7 @@ def get_place_info(place):
         "properties": {
             "title": place.title,
             "placeId": place.id,
-            "detailsUrl": json.loads(details_url)
+            "detailsUrl": {}
         }
     }
 
@@ -44,25 +44,24 @@ def get_details_url(place):
 
 
 def show_index(request):
-    # features_list = [
-    #     get_details_url(place) for place in models.Place.objects.all()
-    # ]
-    #
+    moscow_legends = models.Place.objects.get(title='Экскурсионная компания «Легенды Москвы»')
+    roofs24 = models.Place.objects.get(title='Экскурсионный проект «Крыши24.рф»')
+
     # places_geo = {
     #   "type": "FeatureCollection",
     #   "features": features_list
     # }
-    context = {'geo_json': {
+    geo_json = {
       "type": "FeatureCollection",
       "features": [
         {
           "type": "Feature",
           "geometry": {
             "type": "Point",
-            "coordinates": [37.62, 55.793676]
+            "coordinates": [moscow_legends.lon, moscow_legends.lat]
           },
           "properties": {
-            "title": "«Легенды Москвы",
+            "title": moscow_legends.title,
             "placeId": "moscow_legends",
             "detailsUrl": "./static/places/moscow_legends.json"
           }
@@ -71,16 +70,18 @@ def show_index(request):
           "type": "Feature",
           "geometry": {
             "type": "Point",
-            "coordinates": [37.64, 55.753676]
+            "coordinates": [roofs24.lon, roofs24.lat]
           },
           "properties": {
-            "title": "Крыши24.рф",
+            "title": roofs24.title,
             "placeId": "roofs24",
             "detailsUrl": "./static/places/roofs24.json"
           }
         }
       ]
     }
+    context = {
+        'geo_json': geo_json,
     }
 
     return render(
