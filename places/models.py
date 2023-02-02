@@ -16,10 +16,6 @@ class Place(models.Model):
         verbose_name='Описание',
         help_text='Введите описание'
     )
-    # img = models.ImageField(
-    #     verbose_name='Изображение',
-    #     upload_to='media/',
-    # )
     lat = models.FloatField(max_length=20)
     lon = models.FloatField(max_length=20)
 
