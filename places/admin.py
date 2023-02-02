@@ -1,9 +1,10 @@
 from django.contrib import admin
 from .models import Place, Photo
 from django.utils.html import format_html
+from adminsortable2.admin import SortableAdminBase, SortableStackedInline
 
 
-class PhotosInline(admin.TabularInline):
+class PhotosInline(SortableStackedInline):
     model = Photo
     readonly_fields = ['show_image', ]
 
@@ -17,7 +18,7 @@ admin.site.register(Photo)
 
 
 @admin.register(Place)
-class PlaceAdmin(admin.ModelAdmin):
+class PlaceAdmin(SortableAdminBase, admin.ModelAdmin):
     list_display = [
         'title', 'description_short'
     ]
