@@ -1,7 +1,8 @@
-from django.http import HttpResponse
+from django.http import JsonResponse, HttpResponse
 from django.template import loader
 from django.shortcuts import render
 from places import models
+from django.shortcuts import get_object_or_404
 import json
 
 
@@ -43,14 +44,30 @@ def get_details_url(place):
     }
 
 
+def show_place_info(request, place_id):
+    place = get_object_or_404(models.Place, id=place_id)
+    place_info = {
+        'title': place.title,
+        'imgs': [photo.image.url for photo in place.photos.all()],
+        'description_short': place.description_short,
+        'description_long': place.description_long,
+        'coordinates': {
+            'lng': place.lon,
+            'lat': place.lat
+        }
+    }
+    return JsonResponse(
+        place_info, json_dumps_params={
+            'ensure_ascii': False,
+            'indent': 2,
+        }
+    )
+
+
 def show_index(request):
     moscow_legends = models.Place.objects.get(title='Экскурсионная компания «Легенды Москвы»')
     roofs24 = models.Place.objects.get(title='Экскурсионный проект «Крыши24.рф»')
 
-    # places_geo = {
-    #   "type": "FeatureCollection",
-    #   "features": features_list
-    # }
     geo_json = {
       "type": "FeatureCollection",
       "features": [
