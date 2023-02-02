@@ -156,3 +156,4 @@ cython_debug/
 .upm/
 images/
 media/
+__pycache__/
