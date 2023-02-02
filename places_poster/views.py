@@ -1,47 +1,8 @@
-from django.http import JsonResponse, HttpResponse
-from django.template import loader
+from django.http import JsonResponse
 from django.shortcuts import render
 from places import models
 from django.shortcuts import get_object_or_404
-import json
-
-
-def get_place_info(place):
-    details_url = {
-        'title': place.title,
-        'imgs': place.photos,
-        'description_short': place.description_short,
-        'description_long': place.description_long,
-        'coordinates': {
-            'lng': place.lon,
-            'lat': place.lat
-        }
-    }
-    return {
-        "type": "Feature",
-        "geometry": {
-            "type": "Point",
-            "coordinates": [place.lon, place.lat]
-        },
-        "properties": {
-            "title": place.title,
-            "placeId": place.id,
-            "detailsUrl": {}
-        }
-    }
-
-
-def get_details_url(place):
-    return {
-        'title': place.title,
-        'imgs': 'place.photos',
-        'description_short': place.description_short,
-        'description_long': place.description_long,
-        'coordinates': {
-            'lng': place.lon,
-            'lat': place.lat
-        }
-    }
+from django.urls import reverse
 
 
 def show_place_info(request, place_id):
@@ -65,9 +26,7 @@ def show_place_info(request, place_id):
 
 
 def show_index(request):
-    moscow_legends = models.Place.objects.get(title='Экскурсионная компания «Легенды Москвы»')
-    roofs24 = models.Place.objects.get(title='Экскурсионный проект «Крыши24.рф»')
-
+    places = models.Place.objects.all()
     geo_json = {
       "type": "FeatureCollection",
       "features": [
@@ -75,26 +34,14 @@ def show_index(request):
           "type": "Feature",
           "geometry": {
             "type": "Point",
-            "coordinates": [moscow_legends.lon, moscow_legends.lat]
+            "coordinates": [place.lon, place.lat]
           },
           "properties": {
-            "title": moscow_legends.title,
-            "placeId": "moscow_legends",
-            "detailsUrl": "./static/places/moscow_legends.json"
+            "title": place.title,
+            "placeId": place.id,
+            "detailsUrl": reverse('place_info', args=[place.id])
           }
-        },
-        {
-          "type": "Feature",
-          "geometry": {
-            "type": "Point",
-            "coordinates": [roofs24.lon, roofs24.lat]
-          },
-          "properties": {
-            "title": roofs24.title,
-            "placeId": "roofs24",
-            "detailsUrl": "./static/places/roofs24.json"
-          }
-        }
+        } for place in places
       ]
     }
     context = {
