@@ -17,7 +17,7 @@ SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ['DEBUG']
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['http://vnetraffiqua.pythonanywhere.com/']
 
 
 # Application definition
@@ -70,9 +70,13 @@ WSGI_APPLICATION = 'places_poster.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'VneTraffiqua$db',
+        'USER': os.environ['DB_USER'],
+        'PASSWORD': os.environ['DB_PSSWD'],
+        'HOST': os.environ['DB_HOST'],
     }
+}
 }
 
 
