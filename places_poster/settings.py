@@ -77,7 +77,6 @@ DATABASES = {
         'HOST': os.environ['DB_HOST'],
     }
 }
-}
 
 
 # Password validation
