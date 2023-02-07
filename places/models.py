@@ -30,10 +30,13 @@ class Place(models.Model):
 
 
 class Photo(models.Model):
-    image = models.ImageField(upload_to='media/', verbose_name='Изображение')
+    image = models.ImageField(
+        upload_to='media/', verbose_name='Изображение', unique=True
+    )
     place = models.ForeignKey(
         Place, related_name='photos', on_delete=models.CASCADE
     )
+    number = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return f'{self.id} {self.place}'

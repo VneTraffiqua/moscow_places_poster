@@ -33,7 +33,7 @@ class Command(BaseCommand):
                 byte_image = BytesIO(response.content)
                 image_name = os.path.basename(url)
                 place_image, created = place.photos.get_or_create(
-                    id=num,
+                    number=num,
                     place=place.title
                 )
                 place_image.image.save(image_name, byte_image, save=True)
