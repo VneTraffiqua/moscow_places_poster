@@ -21,10 +21,14 @@ class Command(BaseCommand):
         place_info = response.json()
         place, created = Place.objects.update_or_create(
             title=place_info['title'],
-            description_short=place_info['description_short'],
-            description_long=place_info['description_long'],
-            lat=place_info['coordinates']['lat'],
-            lon=place_info['coordinates']['lng']
+            defaults={
+                'title': place_info['title'],
+                'description_short': place_info['description_short'],
+                'description_long': place_info['description_long'],
+                'lat': place_info['coordinates']['lat'],
+                'lon': place_info['coordinates']['lng']
+            }
+
         )
         if place_info['imgs']:
             for num, url in enumerate(place_info['imgs']):
