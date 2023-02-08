@@ -15,7 +15,9 @@ class PhotosInline(SortableStackedInline):
         )
 
 
-admin.site.register(Photo)
+@admin.register(Photo)
+class PhotoAdmin(admin.ModelAdmin):
+    pass
 
 
 @admin.register(Place)
