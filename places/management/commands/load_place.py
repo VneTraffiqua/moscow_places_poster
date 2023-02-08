@@ -43,4 +43,5 @@ class Command(BaseCommand):
                 )
                 place_image.image.save(image_name, byte_image, save=True)
         [print('Place created') if created else print("Place updated")]
+        Photo.objects.filter(place=None).delete()
 
