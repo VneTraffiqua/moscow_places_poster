@@ -9,12 +9,12 @@ class Place(models.Model):
         help_text='Введите название места',
         unique=True,
     )
-    description_short = models.CharField(
+    short_description = models.CharField(
         verbose_name='Короткое описание',
         max_length=255,
         help_text='Введите короткое описание'
     )
-    description_long = HTMLField(
+    long_description = HTMLField(
         verbose_name='Описание',
         help_text='Введите описание'
     )
