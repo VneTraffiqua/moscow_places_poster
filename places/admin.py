@@ -22,11 +22,5 @@ class PhotoAdmin(admin.ModelAdmin):
 
 @admin.register(Place)
 class PlaceAdmin(SortableAdminBase, admin.ModelAdmin):
-    list_display = [
-        'title', 'description_short'
-    ]
-
+    list_display = ['title', 'description_short']
     inlines = [PhotosInline]
-
-
-
