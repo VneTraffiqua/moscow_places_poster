@@ -22,8 +22,8 @@ class Place(models.Model):
         null=True,
         blank=True
     )
-    lat = models.FloatField(max_length=20, unique=True)
-    lon = models.FloatField(max_length=20, unique=True)
+    lat = models.FloatField(max_length=20)
+    lon = models.FloatField(max_length=20)
 
     def __str__(self):
         return f'{self.title}'
@@ -35,7 +35,7 @@ class Place(models.Model):
 
 class Photo(models.Model):
     image = models.ImageField(
-        upload_to='media/', verbose_name='Изображение', unique=True
+        upload_to='media/', verbose_name='Изображение'
     )
     place = models.ForeignKey(
         Place, related_name='photos',
