@@ -31,6 +31,7 @@ class Command(BaseCommand):
 
         )
         if place_info['imgs']:
+            place.photos.clear()
             for num, url in enumerate(place_info['imgs']):
                 response = requests.get(url)
                 response.raise_for_status()

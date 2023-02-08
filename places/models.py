@@ -34,7 +34,9 @@ class Photo(models.Model):
         upload_to='media/', verbose_name='Изображение', unique=True
     )
     place = models.ForeignKey(
-        Place, related_name='photos', on_delete=models.CASCADE
+        Place, related_name='photos',
+        on_delete=models.CASCADE,
+        null=True
     )
     number = models.PositiveIntegerField(default=0)
 
