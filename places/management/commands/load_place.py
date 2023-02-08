@@ -42,10 +42,5 @@ class Command(BaseCommand):
                     place=place.title
                 )
                 place_image.image.save(image_name, byte_image, save=True)
-        [print(
-            'Place created'
-        ) if created else print(
-            "Place updated"
-        )
-         ]
+        [print('Place created') if created else print("Place updated")]
 
