@@ -26,7 +26,7 @@ class Place(models.Model):
     lon = models.FloatField(max_length=20)
 
     def __str__(self):
-        return f'{self.title}'
+        return self.title
 
     class Meta:
         verbose_name = 'Место'
