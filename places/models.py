@@ -20,8 +20,8 @@ class Place(models.Model):
         help_text='Введите описание',
         blank=True
     )
-    lat = models.FloatField(max_length=20)
-    lon = models.FloatField(max_length=20)
+    lat = models.FloatField(verbose_name='Широта', max_length=20)
+    lon = models.FloatField(verbose_name='Долгота', max_length=20)
 
     def __str__(self):
         return self.title
@@ -39,7 +39,7 @@ class Photo(models.Model):
         Place, related_name='photos',
         on_delete=models.CASCADE,
     )
-    number = models.PositiveIntegerField(default=0)
+    number = models.PositiveIntegerField(default=0, blank=True)
 
     def __str__(self):
         return f'{self.id} {self.place}'
