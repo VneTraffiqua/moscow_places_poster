@@ -22,7 +22,6 @@ class Command(BaseCommand):
         place, created = Place.objects.update_or_create(
             title=place_info['title'],
             defaults={
-                'title': place_info['title'],
                 'short_description': place_info['description_short'],
                 'long_description': place_info['description_long'],
                 'lat': place_info['coordinates']['lat'],
