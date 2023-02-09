@@ -13,13 +13,11 @@ class Place(models.Model):
         verbose_name='Короткое описание',
         max_length=255,
         help_text='Введите короткое описание',
-        null=True,
         blank=True
     )
     long_description = HTMLField(
         verbose_name='Описание',
         help_text='Введите описание',
-        null=True,
         blank=True
     )
     lat = models.FloatField(max_length=20)
