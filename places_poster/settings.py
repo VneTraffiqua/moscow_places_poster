@@ -15,7 +15,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env.str('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.bool('DEBUG', True)
+DEBUG = env.bool('DEBUG', False)
 
 ALLOWED_HOSTS = ['http://vnetraffiqua.pythonanywhere.com/', '127.0.0.1']
 
@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'places.apps.PlacesConfig',
     'adminsortable2',
     'tinymce',
+    'debug_toolbar',
 ]
 
 MIDDLEWARE = [
@@ -42,6 +43,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'places_poster.urls'
@@ -116,11 +118,12 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
 
-MEDIA_ROOT = os.path.join(BASE_DIR)
 
 MEDIA_URL = '/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
+
+INTERNAL_IPS = ['127.0.0.1']
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
