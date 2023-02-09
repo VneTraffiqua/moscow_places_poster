@@ -11,7 +11,7 @@ class PhotosInline(SortableStackedInline):
 
     def show_image(self, obj):
         return format_html(
-            '<img src="{}" height=200 />', obj.image.url
+            '<img src="{}" max-height=200 width=200/>', obj.image.url
         )
 
 
