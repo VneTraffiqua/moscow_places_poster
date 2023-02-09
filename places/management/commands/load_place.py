@@ -19,7 +19,7 @@ class Command(BaseCommand):
         response = requests.get(options['json_url'])
         response.raise_for_status()
         place_info = response.json()
-        place, created = Place.objects.update_or_create(
+        place, place_created = Place.objects.update_or_create(
             title=place_info['title'],
             defaults={
                 'short_description': place_info['description_short'],
@@ -30,7 +30,7 @@ class Command(BaseCommand):
 
         )
         if place_info['imgs']:
-            place.photos.clear()
+            place.photos.all().delete()
             for num, url in enumerate(place_info['imgs']):
                 response = requests.get(url)
                 response.raise_for_status()
@@ -41,6 +41,5 @@ class Command(BaseCommand):
                     place=place.title
                 )
                 place_image.image.save(image_name, byte_image, save=True)
-        [print('Place created') if created else print("Place updated")]
-        Photo.objects.filter(place=None).delete()
+        print('Place created') if place_created else print("Place updated")
 
