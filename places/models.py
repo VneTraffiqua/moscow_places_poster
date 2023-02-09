@@ -38,7 +38,6 @@ class Photo(models.Model):
     place = models.ForeignKey(
         Place, related_name='photos',
         on_delete=models.CASCADE,
-        null=True
     )
     number = models.PositiveIntegerField(default=0)
 
