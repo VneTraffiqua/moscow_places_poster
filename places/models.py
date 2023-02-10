@@ -20,8 +20,8 @@ class Place(models.Model):
         help_text='Введите описание',
         blank=True
     )
-    lat = models.FloatField(verbose_name='Широта', max_length=20)
-    lon = models.FloatField(verbose_name='Долгота', max_length=20)
+    lat = models.FloatField(verbose_name='Широта')
+    lon = models.FloatField(verbose_name='Долгота')
 
     def __str__(self):
         return self.title
