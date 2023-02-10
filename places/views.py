@@ -9,7 +9,7 @@ def show_place_info(request, place_id):
     place = get_object_or_404(models.Place, id=place_id)
     place_info = {
         'title': place.title,
-        'imgs': [photo.image.url for photo in place.photos.all()],
+        'imgs': [photo.image.url for photo in place.photos.prefetch_related('place')],
         'description_short': place.short_description,
         'description_long': place.long_description,
         'coordinates': {
